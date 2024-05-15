@@ -13,6 +13,8 @@
                 if (response.ok) {
                     document.getElementById('buyPrice').textContent = `Buy: ${data.buy_price}`;
                     document.getElementById('sellPrice').textContent = `Sell: ${data.sell_price}`;
+                    document.getElementById('oneChiVND').textContent = `1 chi: ${data['1_chi_vnd']} VND`;
+                    document.getElementById('fiveChiVND').textContent = `5 chi: ${data['5_chi_vnd']} VND`;
                     document.getElementById('oneChiUSD').textContent = `1 chi: ${data['1_chi_usd']} USD`;
                     document.getElementById('fiveChiUSD').textContent = `5 chi: ${data['5_chi_usd']} USD`;
                     document.getElementById('fiveRingsUSD').textContent = `5 rings: ${data['5_rings_usd']} USD`;
@@ -31,6 +33,8 @@
     <button onclick="fetchGoldPrice()">Get Gold Price</button>
     <p id="buyPrice"></p>
     <p id="sellPrice"></p>
+    <p id="oneChiVND"></p>
+    <p id="fiveChiVND"></p>
     <p id="oneChiUSD"></p>
     <p id="fiveChiUSD"></p>
     <p id="fiveRingsUSD"></p>
