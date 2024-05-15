@@ -43,9 +43,12 @@ def get_gold_price():
 
 
 def get_exchange_rate(curr_one, curr_two):
-    api_key = os.getenv(
-        "ER_API_KEY"
-    )  # Ensure your API key is set in your environment variables
+    api_key = os.getenv("ER_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "API key not found. Please set the ER_API_KEY environment variable."
+        )
+
     url = f"https://v6.exchangerate-api.com/v6/{api_key}/pair/{curr_one}/{curr_two}"
     response = requests.get(url)
     if response.status_code == 200:
