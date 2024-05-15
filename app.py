@@ -1,8 +1,8 @@
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, send_from_directory
 from bs4 import BeautifulSoup
 import requests
 import re
-from xe_convert import get_exchange_rate
+import os
 
 app = Flask(__name__)
 
@@ -40,6 +40,24 @@ def get_gold_price():
         return jsonify(result)
     else:
         return jsonify({"error": "Pattern not found"}), 404
+
+
+def get_exchange_rate(curr_one, curr_two):
+    api_key = os.getenv(
+        "ER_API_KEY"
+    )  # Ensure your API key is set in your environment variables
+    url = f"https://v6.exchangerate-api.com/v6/{api_key}/pair/{curr_one}/{curr_two}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if data["result"] == "success":
+            return data["conversion_rate"]
+        else:
+            raise ValueError(f"Error fetching exchange rate: {data['error-type']}")
+    else:
+        raise ValueError(
+            f"Error fetching exchange rate: HTTP Status {response.status_code}"
+        )
 
 
 if __name__ == "__main__":

@@ -20,7 +20,8 @@
                     document.getElementById('error').textContent = `Error: ${data.error}`;
                 }
             } catch (error) {
-                document.getElementById('error').textContent = `Error: ${error.message}`;
+                const responseText = await error.response.text();  // Add this line
+                document.getElementById('error').textContent = `Error: ${error.message}\n${responseText}`;  // Modify this line
             }
         }
     </script>
