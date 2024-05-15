@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Price and Exchange Rate</title>
+    <script>
+        async function fetchGoldPrice() {
+            try {
+                const response = await fetch('/gold-price');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('buyPrice').textContent = `Buy: ${data.buy_price}`;
+                    document.getElementById('sellPrice').textContent = `Sell: ${data.sell_price}`;
+                    document.getElementById('oneChiUSD').textContent = `1 chi: ${data['1_chi_usd']} USD`;
+                    document.getElementById('fiveChiUSD').textContent = `5 chi: ${data['5_chi_usd']} USD`;
+                    document.getElementById('fiveRingsUSD').textContent = `5 rings: ${data['5_rings_usd']} USD`;
+                } else {
+                    document.getElementById('error').textContent = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                document.getElementById('error').textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Gold Price and Exchange Rate</h1>
+    <button onclick="fetchGoldPrice()">Get Gold Price</button>
+    <p id="buyPrice"></p>
+    <p id="sellPrice"></p>
+    <p id="oneChiUSD"></p>
+    <p id="fiveChiUSD"></p>
+    <p id="fiveRingsUSD"></p>
+    <p id="error" style="color: red;"></p>
+</body>
+</html>
